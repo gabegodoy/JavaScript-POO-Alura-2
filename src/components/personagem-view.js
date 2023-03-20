@@ -1,9 +1,15 @@
+import { Personagem } from '../modules/personagem.js';
+import { mostrarModal } from "./modal.js";
+
 export class PersonagemView {
     personagens
+    personagensSelecionados
 
     constructor(personagens) {
-        this.ulPersonagens = document.querySelector('ul#personagens')
-        this.personagens = personagens
+        this.ulPersonagens = document.querySelector('ul#personagens');
+        this.personagens = personagens;
+        this.personagensSelecionados = [];
+        this.escutarEventoDuelo();
     }
 
     render() {
@@ -18,13 +24,13 @@ export class PersonagemView {
         const personagemLI = document.createElement('li')
         personagemLI.classList.add('personagem', personagem.constructor.tipo)
 
-        //const estaSelecionado = this.personagensSelecionados.indexOf(personagem) !== -1 //sintaxe para quando encontra no array
+        const estaSelecionado = this.personagensSelecionados.indexOf(personagem) !== -1 //sintaxe para quando encontra no arra
 
-        //if (estaSelecionado) personagemLI.classList.add('selecionado')
+        if (estaSelecionado) personagemLI.classList.add('selecionado')
 
         personagemLI.innerHTML =
 
-        `
+            `
         <div class="container-superior">
             <div class="cabecalho">
                 <div class="combate"></div>
@@ -68,7 +74,7 @@ export class PersonagemView {
         }*/
 
 
-        /*personagemLI.onclick = () => {
+        personagemLI.onclick = () => {
             const jaTem2Selecionados = this.personagensSelecionados.length === 2
             if (!jaTem2Selecionados || estaSelecionado) {
                 personagemLI.classList.toggle('selecionado')
@@ -77,13 +83,13 @@ export class PersonagemView {
 
                 this.removeSelecao(personagem)
             }
-        }*/
+        }
 
         return personagemLI
     }
 
 
-    /*adicionaSelecao = (personagem) => {
+    adicionaSelecao = (personagem) => {
         this.personagensSelecionados.push(personagem)
         this.render()
     }
@@ -101,7 +107,10 @@ export class PersonagemView {
         botaoDuelar.addEventListener('click', () => {
             if (this.personagensSelecionados.length < 2) return mostrarModal('Selecione 2 personagens')
 
-            const resultadoDuelo = Personagem.verificarVencedor(this.personagensSelecionados[0], this.personagensSelecionados[1])
+            // console.log(Personagem.verificarVencedor());
+
+
+            const resultadoDuelo = Personagem.verificarVencedor(this.personagensSelecionados[0], this.personagensSelecionados[1]);
 
             mostrarModal(resultadoDuelo)
 
@@ -109,5 +118,5 @@ export class PersonagemView {
 
             this.render()
         })
-    }*/
+    }
 }
